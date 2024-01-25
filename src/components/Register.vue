@@ -2,9 +2,9 @@
   <main class="form-signin w-25 m-auto mt-5">
     <form>
       <h1 class="h3 mb-3 fw-normal mt-3">Register</h1>
-      <Input :label="'Name'" :type="'text'"></Input>
-      <Input :label="'Email address'" :type="'text'" ></Input>
-      <Input :label="'Password'" :type="'password'" ></Input>
+      <Input :label="'Name'" :type="'text'" v-model="username"></Input>
+      <Input :label="'Email address'" :type="'text'" v-model="email"></Input>
+      <Input :label="'Password'" :type="'password'" v-model="password"></Input>
 
       <Button type="submit" :disabled="isLoading" @click="submitHandler">Register</Button>
     </form>
@@ -17,6 +17,14 @@ import Button from "@/ui-components/Button.vue";
 import Input from "@/ui-components/Input.vue";
 
 export default {
+  data() {
+    return {
+      username: '',
+      email:  '',
+      password: ''
+    }
+  },
+
   components: {Input, Button},
 
   computed: {
@@ -29,12 +37,15 @@ export default {
     submitHandler(e) {
       e.preventDefault()
       const data = {
-        username: 'dfdfxxxfdf',
-        email: 'xcxxxxxxcx@gmail.com',
-        password: 'sadrid777',
+        username: this.username,
+        email: this.email,
+        password: this.password,
       }
       this.$store.dispatch('register', data)
-          .then(user => console.log('User', user))
+          .then(user => {
+            console.log('User', user)
+            this.$router.push({name: 'home'})
+          })
           .catch(err => console.log('Error', err))
     }
   }
