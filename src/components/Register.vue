@@ -28,7 +28,14 @@ export default {
   methods: {
     submitHandler(e) {
       e.preventDefault()
-      this.$store.dispatch('register')
+      const data = {
+        username: 'dfdfxxxfdf',
+        email: 'xcxxxxxxcx@gmail.com',
+        password: 'sadrid777',
+      }
+      this.$store.dispatch('register', data)
+          .then(user => console.log('User', user))
+          .catch(err => console.log('Error', err))
     }
   }
 
