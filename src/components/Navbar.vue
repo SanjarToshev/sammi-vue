@@ -5,16 +5,22 @@
 
       <h3 @click="toHomeHandler" style="cursor: pointer">Sammi logo</h3>
     </a>
-
+       {{isLoggedIn}}
     <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+      <template v-if="isLoggedIn">
+        <RouterLink :to="{name: 'login'}" class="me-3 py-2 link-body-emphasis text-decoration-none">{{user.username}}</RouterLink>
+      </template>
+      <template v-if="!isLoggedIn">
       <RouterLink :to="{name: 'login'}" class="me-3 py-2 link-body-emphasis text-decoration-none">Login</RouterLink>
-      <RouterLink :to="{name: 'register'}" class="me-3 py-2 link-body-emphasis text-decoration-none">Register</RouterLink>
+        <RouterLink :to="{name: 'register'}" class="me-3 py-2 link-body-emphasis text-decoration-none">Register</RouterLink>
+      </template>
     </nav>
   </div>
 </template>
 
 <script>
 import {logo} from "@/constants/index.js";
+import {mapState} from "vuex";
 
 export default {
 data(){
@@ -22,6 +28,13 @@ data(){
     logo,
   }
 },
+  computed: {
+  ...mapState({
+    user: state => state.auth.user,
+    isLoggedIn: state => state.auth.isLoggedIn
+  })
+  },
+
   methods: {
   toHomeHandler() {
     return this.$router.push({name: 'home'})
