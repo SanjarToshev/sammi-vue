@@ -18,6 +18,7 @@
 import Button from "@/ui-components/Button.vue";
 import Input from "@/ui-components/Input.vue";
 import ValidationError from "@/components/ValidationError.vue";
+import {mapState} from "vuex";
 
 export default {
   data() {
@@ -31,12 +32,10 @@ export default {
   components: {Input, Button, ValidationError},
 
   computed: {
-    isLoading() {
-      return this.$store.state.auth.isLoading
-    },
-    validationErrors() {
-      return this.$store.state.auth.errors
-    }
+    ...mapState({
+      isLoading: state => state.auth.isLoading,
+      validationErrors: state => state.auth.errors,
+    }),
   },
 
   methods: {
