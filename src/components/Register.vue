@@ -2,6 +2,9 @@
   <main class="form-signin w-25 m-auto mt-5">
     <form>
       <h1 class="h3 mb-3 fw-normal mt-3">Register</h1>
+
+      <ValidationError v-if="validationErrors" :validationErrors = "validationErrors"/>
+
       <Input :label="'Name'" :type="'text'" v-model="username"></Input>
       <Input :label="'Email address'" :type="'text'" v-model="email"></Input>
       <Input :label="'Password'" :type="'password'" v-model="password"></Input>
@@ -12,9 +15,9 @@
 </template>
 
 <script>
-
 import Button from "@/ui-components/Button.vue";
 import Input from "@/ui-components/Input.vue";
+import ValidationError from "@/components/ValidationError.vue";
 
 export default {
   data() {
@@ -25,11 +28,14 @@ export default {
     }
   },
 
-  components: {Input, Button},
+  components: {Input, Button, ValidationError},
 
   computed: {
     isLoading() {
       return this.$store.state.auth.isLoading
+    },
+    validationErrors() {
+      return this.$store.state.auth.errors
     }
   },
 
