@@ -42,6 +42,21 @@ const mutations = {
         state.errors = payload.errors
         state.isLoggedIn = false
     },
+
+    currentUserStert(state){
+        state.isLoading = true
+    },
+    currentUserSuccess(state, payload){
+        state.isLoading = false
+        state.user = payload
+        state.isLoggedIn = true
+    },
+    currentUserFailure(state){
+        state.isLoading = false
+        state.errors = null
+        state.isLoggedIn = false
+    },
+
 }
 const actions = {
     register(context, user) {
@@ -71,6 +86,19 @@ const actions = {
             })
         })
     },
+    getUser(context, user) {
+        return new Promise((resolve) => {
+            context.commit('currentUserStert')
+            AuthService.getUser().then(response => {
+                context.commit('currentUserSuccess', response.data.user)
+                resolve(response.data.user)
+            }).catch(error => {
+                context.commit('currentUserFailure', error.response.data)
+            })
+        })
+
+    },
+
 }
 
 export default {
