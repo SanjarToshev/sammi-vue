@@ -6,7 +6,10 @@
     </a>
     <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
       <template v-if="isLoggedIn">
-        <RouterLink :to="{name: 'login'}" class="me-3 py-2 link-body-emphasis text-decoration-none">{{user.username}}</RouterLink>
+        <RouterLink :to="{name: 'home'}" class="me-3 py-2 link-body-emphasis text-decoration-none">
+          {{user.username}}
+        </RouterLink>
+        <a href="#" class="me-3 py-2 link-body-emphasis text-decoration-none" @click="logout">Logout</a>
       </template>
       <template v-if="!isLoggedIn">
       <RouterLink :to="{name: 'login'}" class="me-3 py-2 link-body-emphasis text-decoration-none">Login</RouterLink>
@@ -37,7 +40,9 @@ data(){
   toHomeHandler() {
     return this.$router.push({name: 'home'})
   },
-
+  logout() {
+    return this.$store.dispatch('logout')
+  }
   },
 }
 </script>

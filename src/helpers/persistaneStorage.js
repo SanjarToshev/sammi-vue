@@ -1,7 +1,7 @@
 export const getItem = (key) => {
     try {
         JSON.parse(localStorage.getItem(key))
-    }catch (error) {
+    } catch (error) {
         console.log('Error getting data')
         return null
     }
@@ -9,7 +9,15 @@ export const getItem = (key) => {
 export const setItem = (key, data) => {
     try {
         localStorage.setItem(key, JSON.stringify(data))
-    }catch (error) {
+    } catch (error) {
         console.log('Error saving data')
+    }
+}
+
+export const removeItem = (key) => {
+    try {
+        localStorage.removeItem(key)
+    } catch (error) {
+        console.log("Error deleting data")
     }
 }

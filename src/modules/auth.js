@@ -1,5 +1,5 @@
 import AuthService from "@/service/auth.js";
-import {setItem} from "@/helpers/persistaneStorage.js";
+import {removeItem, setItem} from "@/helpers/persistaneStorage.js";
 
 const state = {
     isLoading: false,
@@ -56,6 +56,10 @@ const mutations = {
         state.errors = null
         state.isLoggedIn = false
     },
+    logout(state){
+        state.user = null
+        state.isLoggedIn = false
+    }
 
 }
 const actions = {
@@ -86,7 +90,7 @@ const actions = {
             })
         })
     },
-    getUser(context, user) {
+    getUser(context) {
         return new Promise((resolve) => {
             context.commit('currentUserStert')
             AuthService.getUser().then(response => {
@@ -98,6 +102,10 @@ const actions = {
         })
 
     },
+    logout(context){
+        context.commit('logout')
+        removeItem('token')
+    }
 
 }
 
