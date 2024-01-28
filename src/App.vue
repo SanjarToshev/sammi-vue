@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container">
-    <Navbar/>
+      <Navbar/>
       <RouterView/>
     </div>
   </div>
@@ -9,15 +9,12 @@
 
 <script>
 import Navbar from "@/components/Navbar.vue";
-import {RouterView} from "vue-router";
-
 export default {
-  components: {Navbar, },
+  components: {Navbar,},
 
   mounted() {
     this.$store.dispatch('getUser')
   }
-
 }
 </script>
 
