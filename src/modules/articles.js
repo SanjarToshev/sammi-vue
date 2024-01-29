@@ -12,6 +12,7 @@ const mutations = {
         state.isLoading = true;
         state.data = null
         state.error = null
+        state.articleDetail = null
     },
     getArticlesSucces(state, payload) {
         state.isLoading = false;
@@ -24,13 +25,14 @@ const mutations = {
     getArticleDetailStart(state) {
         state.isLoading = true;
         state.articleDetail = null
+        state.data = null
         state.error = null
     },
     getArticleDetailSucces(state, payload) {
         state.isLoading = false;
         state.articleDetail = payload
     },
-    getArticleDetailFailure(state, payload) {
+    getArticleDetailFailure(state) {
         state.isLoading = false
     },
 }
@@ -47,10 +49,11 @@ const actions = {
         })
     },
     articleDetail(context, slug) {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             context.commit('getArticleDetailStart')
             ArticleServise.articleDetail(slug).then( response => {
-                context.commit('getArticleDetailSucces')
+                context.commit('getArticleDetailSucces', response.data.article)
+                resolve(response.data.article)
             }).catch(() => context.commit('getArticleDetailFailure'))
         })
 
