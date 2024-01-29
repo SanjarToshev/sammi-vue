@@ -23,7 +23,7 @@
         <p class="card-text">{{article.body}}</p>
         <div class="d-flex justify-content-between align-items-center card-footer">
           <div class="btn-group">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Read article</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary" @click="navigateHandler">Read article</button>
 <!--            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>-->
           </div>
           <small class="text-body-secondary">{{new Date(article.createdAt).toLocaleDateString('us')}}</small>
@@ -39,6 +39,11 @@ export default {
     article: {
       type: Object,
       required: true,
+    }
+  },
+  methods: {
+    navigateHandler() {
+      return this.$router.push(`/article/${this.article.slug}`)
     }
   }
 }

@@ -3,7 +3,8 @@ import ArticleServise from "@/service/articles.js";
 const state = {
     data: null,
     isLoading: false,
-    error: null
+    error: null,
+    articleDetail: null
 }
 
 const mutations = {
@@ -20,6 +21,18 @@ const mutations = {
         state.isLoading = false
         state.error = payload.errors
     },
+    getArticleDetailStart(state) {
+        state.isLoading = true;
+        state.articleDetail = null
+        state.error = null
+    },
+    getArticleDetailSucces(state, payload) {
+        state.isLoading = false;
+        state.articleDetail = payload
+    },
+    getArticleDetailFailure(state, payload) {
+        state.isLoading = false
+    },
 }
 
 const actions = {
@@ -32,6 +45,15 @@ const actions = {
                     resolve(response.data.articles)
                 }).catch(() => context.commit('getArticlesFailure'))
         })
+    },
+    articleDetail(context, slug) {
+        return new Promise((resolve, reject) => {
+            context.commit('getArticleDetailStart')
+            ArticleServise.articleDetail(slug).then( response => {
+                context.commit('getArticleDetailSucces')
+            }).catch(() => context.commit('getArticleDetailFailure'))
+        })
+
     }
 }
 
