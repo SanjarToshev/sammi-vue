@@ -3,6 +3,7 @@ import HomeView from "@/views/HomeView.vue";
 import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
 import ArticleDetailView from "@/views/ArticleDetailView.vue";
+import CreateForm from "@/components/CreateForm.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/article/:slug',
       name: 'article-details',
       component: ArticleDetailView
+    },
+    {
+      path: '/create-article',
+      name: 'create-article',
+      component: CreateForm
     }
   ]
 })
