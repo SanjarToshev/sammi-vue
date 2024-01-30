@@ -5,7 +5,7 @@
       <Input type="text" label="Title"  v-model="title"/>
       <TextArea type="text" label="Description"  v-model="description"></TextArea>
       <TextArea type="text" label="Body" v-model="body"></TextArea>
-      <Button @click="createArticleHandler">Create article</Button>
+      <Button @click="createArticleHandler" :disabled="isLoading">Create article</Button>
     </form>
   </div>
 
@@ -16,6 +16,7 @@
 import Input from "@/ui-components/Input.vue";
 import TextArea from "@/ui-components/TextArea.vue";
 import Button from "@/ui-components/Button.vue";
+import {mapState} from "vuex";
 
 export default {
   components: {Button, TextArea, Input},
@@ -35,8 +36,15 @@ export default {
         body: this.body,
         tagList: [],
       }
-      console.log(article)
+      this.$store.dispatch('createArticle', article)
+      this.$router.push('/')
     }
+  },
+
+  computed: {
+    ...mapState({
+      isLoading: state => state.control.isLoading
+    })
   }
 
 
