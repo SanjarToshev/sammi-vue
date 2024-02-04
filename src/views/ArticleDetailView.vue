@@ -21,10 +21,10 @@ export default {
       isLoading: state => state.articles.isLoading
     })
   },
-  
-mounted() {
-  this.$store.dispatch('articleDetail', this.$route.params.slug)
-}
+
+  mounted() {
+    this.$store.dispatch('articleDetail', this.$route.params.slug)
+  }
 }
 </script>
 

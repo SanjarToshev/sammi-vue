@@ -33,6 +33,14 @@
                 :disabled="isLoading"
             >Delete
             </button>
+            <button
+                v-if="article.author.username == user.username"
+                type="button"
+                class="btn btn-sm btn-outline-primary"
+                @click="navigateEditHandler"
+                :disabled="isLoading"
+            >Edit
+            </button>
           </div>
           <small class="text-body-secondary">{{ new Date(article.createdAt).toLocaleDateString('us') }}</small>
         </div>
@@ -64,6 +72,9 @@ export default {
     },
     deleteArticleHandler() {
       return this.$store.dispatch('deleteArticle', this.article.slug).then(() => this.$store.dispatch('articles'))
+    },
+    navigateEditHandler() {
+      return this.$router.push(`/edit-article/${this.article.slug}`)
     }
   },
 
